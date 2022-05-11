@@ -30,7 +30,12 @@ export default {
 .logo-image {
   padding-bottom: 50px;
 }
-
+h1 {
+  text-align: center;
+}
+pre {
+  text-align: center;
+}
 .logo-container {
   display: flex;
   justify-content: center;
