@@ -36,7 +36,6 @@ export default {
     justify-content: center;
     align-items: flex-start;
     text-align: left;
-    background: rgba(238, 238, 238, 0.94);
     padding: 50px;
     border-radius: 10px;
   }
