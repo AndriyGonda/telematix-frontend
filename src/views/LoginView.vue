@@ -44,7 +44,6 @@ export default {
         username: this.username,
         password: this.password
       });
-      console.log(this.loginFailed)
     }
   },
   computed: {
