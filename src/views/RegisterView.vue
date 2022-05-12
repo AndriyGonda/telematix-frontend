@@ -46,4 +46,9 @@ pre {
   margin-top: 15px;
   width: 100%;
 }
+
+.form-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
 </style>

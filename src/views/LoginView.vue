@@ -30,6 +30,10 @@ export default {
 </script>
 
 <style scoped>
+.form-label {
+  margin-top: 10px;
+  margin-bottom: 5px;
+}
   .container {
     display: flex;
     flex-direction: column;
