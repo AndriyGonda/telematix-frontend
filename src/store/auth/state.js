@@ -1,4 +1,5 @@
 export default {
     token: null,
-    errorMessage: null
+    errorMessage: null,
+    registrationSuccess: null
 }

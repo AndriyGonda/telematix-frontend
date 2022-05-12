@@ -5,3 +5,7 @@ export function mutateToken(state, token) {
 export function mutateErrorMessage(state, message) {
     state.errorMessage = message;
 }
+
+export function mutateRegistrationSuccess(state, success) {
+    state.registrationSuccess = success
+}

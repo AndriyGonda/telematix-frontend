@@ -12,3 +12,12 @@ export function makeLogin(ctx, credentials) {
         ctx.commit('mutateToken', null);
     });
 }
+
+export function makeRegistration(ctx, userData) {
+    axios.post(`${CONSTANTS.API_ROOT}/register`, userData).then(() => {
+        ctx.commit('mutateRegistrationSuccess', true)
+    }).catch(reason => {
+        ctx.commit('mutateRegistrationSuccess', false)
+        ctx.commit('mutateErrorMessage', reason.response.data.message);
+    })
+}

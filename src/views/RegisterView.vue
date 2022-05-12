@@ -4,25 +4,57 @@
     <img src="../assets/logo.png" alt="TelematiX" class="logo-image">
   </div>
   <h1 class="text text-danger">Registration</h1>
-  <pre class="text text-secondary">Enter user data for registration</pre>
-  <div class="registration-form container">
+  <pre v-if="!registrationSuccess" class="text text-secondary">Enter user data for registration</pre>
+  <div v-if="!registrationSuccess"  class="registration-form container">
     <label for="username" class="form-label">Username</label>
-    <input type="text" class="form-control" id="username">
+    <input type="text" class="form-control" id="username" v-model="username">
 
     <label for="email" class="form-label">Email</label>
-    <input type="email" class="form-control" id="email">
+    <input type="email" class="form-control" id="email" v-model="email">
 
     <label for="password" class="form-label">Password</label>
-    <input type="password" class="form-control" id="password">
-
-    <button class="btn btn-danger">Register now</button>
+    <input type="password" class="form-control" id="password" v-model="password">
+    <pre v-if="registrationFailed" class="text text-danger text-center ">{{registrationFailed}}</pre>
+    <button class="btn btn-danger" @click="onRegisterClick()">Register now</button>
+  </div>
+  <div v-else class="container">
+    <pre class="text text-success">User registered. Please go to login page</pre>
+    <button class="btn btn-primary" @click="()=> this.$router.push('/login')">Go to login</button>
   </div>
 </div>
 </template>
 
 <script>
+import {mapActions, mapGetters} from "vuex";
+
 export default {
-  name: "RegisterView"
+  name: "RegisterView",
+  data () {
+    return {
+      username: null,
+      email: null,
+      password: null
+    }
+  },
+  computed: {
+    ...mapGetters({
+      registrationFailed: "auth/getErrorMessage",
+      registrationSuccess: "auth/getRegistrationSuccess"
+    })
+  },
+  methods: {
+    ...mapActions({
+      makeRegister: 'auth/makeRegistration',
+
+    }),
+    onRegisterClick() {
+      this.makeRegister({
+        username: this.username,
+        email: this.email,
+        password: this.password
+      });
+    }
+  }
 }
 </script>
 

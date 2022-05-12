@@ -17,7 +17,7 @@
           Login
         </button>
 
-        <button class="btn btn-secondary">
+        <button class="btn btn-secondary" @click="onRegisterClick">
           Register
         </button>
       </div>
@@ -44,6 +44,9 @@ export default {
         username: this.username,
         password: this.password
       });
+    },
+    onRegisterClick() {
+      window.location.href = "/register";
     }
   },
   computed: {

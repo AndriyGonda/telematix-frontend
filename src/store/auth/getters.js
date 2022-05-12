@@ -3,5 +3,9 @@ export function getErrorMessage(state) {
 }
 
 export function getSessionToken() {
-    return sessionStorage.getItem("token")
+    return sessionStorage.getItem("token");
+}
+
+export function getRegistrationSuccess(state) {
+    return state.registrationSuccess;
 }
