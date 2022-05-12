@@ -9,21 +9,32 @@ import Error from "@/views/Error";
 
 Vue.use(VueRouter)
 
+const ifAuthenticated = (to, from, next) => {
+  if (sessionStorage.getItem('token')) {
+    next()
+    return
+  }
+  next('/login')
+}
+
 const routes = [
   {
     path: '/',
     name: 'devices',
-    component: DevicesView
+    component: DevicesView,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/monitoring',
     name: 'monitoring',
-    component: MonitoringView
+    component: MonitoringView,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/report',
     name: 'report',
-    component: ReportView
+    component: ReportView,
+    beforeEnter: ifAuthenticated,
   },
   {
     path: '/login',
