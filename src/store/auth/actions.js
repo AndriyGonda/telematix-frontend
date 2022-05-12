@@ -4,7 +4,11 @@ import axios from 'axios';
 export function makeLogin(ctx, credentials) {
     axios.post(`${CONSTANTS.API_ROOT}/login`, credentials).then(response => {
         sessionStorage.setItem("token", response.data.token);
+        ctx.commit('mutateToken', response.data.token);
         ctx.commit('mutateErrorMessage', null)
         window.location.href = '/';
-    }).catch( reason => ctx.commit('mutateErrorMessage', reason.response.data.message));
+    }).catch( reason => {
+        ctx.commit('mutateErrorMessage', reason.response.data.message)
+        ctx.commit('mutateToken', null);
+    });
 }
