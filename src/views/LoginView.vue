@@ -6,12 +6,14 @@
         <img src="../assets/logo.png" alt="TelematiX" class="logo-image">
       </div>
       <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" id="username">
+      <input type="text" class="form-control" id="username" v-model="username">
 
       <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" id="password">
+      <input type="password" class="form-control" id="password" v-model="password">
+
+      <pre v-if="loginFailed" class="text text-danger text-center ">{{loginFailed}}</pre>
       <div class="buttons-container">
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="onLoginClick()">
           Login
         </button>
 
@@ -24,8 +26,32 @@
 </template>
 
 <script>
+import {mapActions, mapGetters} from 'vuex'
 export default {
-  name: "LoginView"
+  name: "LoginView",
+  data () {
+    return {
+      username: null,
+      password: null
+    }
+  },
+  methods: {
+    ...mapActions({
+      makeLogin: 'auth/makeLogin'
+    }),
+    onLoginClick() {
+      this.makeLogin({
+        username: this.username,
+        password: this.password
+      });
+      console.log(this.loginFailed)
+    }
+  },
+  computed: {
+    ...mapGetters({
+      loginFailed: 'auth/getErrorMessage',
+    })
+  }
 }
 </script>
 

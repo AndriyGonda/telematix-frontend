@@ -5,6 +5,7 @@ import MonitoringView from "@/views/MonitoringView";
 import ReportView from "@/views/ReportView";
 import LoginView from "@/views/LoginView";
 import RegisterView from "@/views/RegisterView";
+import Error from "@/views/Error";
 
 Vue.use(VueRouter)
 
@@ -33,6 +34,11 @@ const routes = [
     path: '/register',
     name: 'register',
     component: RegisterView
+  },
+  {
+    path: "*",
+    name: 'NotFound',
+    component: () => Error
   }
 ]
 
