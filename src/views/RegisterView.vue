@@ -5,7 +5,7 @@
   </div>
   <h1 class="text text-danger">Registration</h1>
   <pre v-if="!registrationSuccess" class="text text-secondary">Enter user data for registration</pre>
-  <div v-if="!registrationSuccess"  class="registration-form container">
+  <div v-if="!registrationSuccess"  class="registration-form">
     <label for="username" class="form-label">Username</label>
     <input type="text" class="form-control" id="username" v-model="username">
 
@@ -67,6 +67,7 @@ h1 {
 }
 pre {
   text-align: center;
+  padding: 0;
 }
 .logo-container {
   display: flex;
@@ -83,4 +84,12 @@ pre {
   margin-top: 10px;
   margin-bottom: 5px;
 }
+.container {
+  margin-top: 100px;
+  width: 400px;
+  box-sizing:  border-box;
+  display: flex;
+  flex-direction: column;
+}
+
 </style>

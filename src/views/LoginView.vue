@@ -89,4 +89,10 @@ export default {
     margin-bottom: 5px;
     margin-top: 10px;
   }
+  .container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 </style>
