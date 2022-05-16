@@ -24,8 +24,8 @@
     </modal>
   </div>
   <ul class="devices-list">
-    <li class="md-list-item">
-      <pre class="text text-success device-title">device</pre>
+    <li class="md-list-item" v-for="device in devices" v-bind:key="device.id">
+      <pre class="text text-success device-title">{{device.name}}</pre>
       <div class="btn-container">
         <button class="btn btn-primary btn-control">info</button>
         <button class="btn btn-success btn-control">edit</button>
@@ -38,16 +38,29 @@
 
 <script>
 import NavBar from "@/components/Navbar";
+import {mapActions, mapGetters} from "vuex";
+
 export default {
   name: "DevicesView",
   components: {NavBar},
   methods: {
+    ...mapActions({
+      loadDevices: 'device/loadDevices'
+    }),
     onCreateDeviceShow() {
       this.$modal.show("create-device-modal")
     },
     onCancelClick() {
       this.$modal.hide("create-device-modal")
     }
+  },
+  mounted() {
+    this.loadDevices();
+  },
+  computed: {
+    ...mapGetters({
+      devices: "device/getDevices"
+    })
   }
 }
 </script>
