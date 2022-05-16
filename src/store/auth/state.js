@@ -1,4 +1,6 @@
 export default {
     errorMessage: null,
-    registrationSuccess: null
+    registrationSuccess: null,
+    profileUpdated: null,
+    failedToUpdateProfile: null
 }

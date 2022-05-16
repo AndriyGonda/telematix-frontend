@@ -5,6 +5,7 @@ import router from './router'
 import { LMap, LTileLayer, LMarker } from 'vue2-leaflet';
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import vSelect from 'vue-select'
+import VModal from 'vue-js-modal'
 import 'bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css'
@@ -12,6 +13,7 @@ import 'leaflet/dist/leaflet.css'
 import 'vue-select/dist/vue-select.css'
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
+Vue.use(VModal)
 Vue.component('v-select', vSelect)
 Vue.component('l-map', LMap);
 Vue.component('l-tile-layer', LTileLayer);

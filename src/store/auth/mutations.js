@@ -9,3 +9,11 @@ export function mutateErrorMessage(state, message) {
 export function mutateRegistrationSuccess(state, success) {
     state.registrationSuccess = success
 }
+
+export function mutateProfileUpdated(state, profileUpdated) {
+    state.profileUpdated = profileUpdated
+}
+
+export function mutateProfileUpdateFailed(state, profileUpdateFailed) {
+    state.failedToUpdateProfile = profileUpdateFailed
+}

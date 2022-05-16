@@ -5,7 +5,8 @@ import MonitoringView from "@/views/MonitoringView";
 import ReportView from "@/views/ReportView";
 import LoginView from "@/views/LoginView";
 import RegisterView from "@/views/RegisterView";
-import Error from "@/views/Error";
+import MessagesView from "@/views/MessagesView";
+import ProfileView from "@/views/ProfileView";
 
 Vue.use(VueRouter)
 
@@ -19,7 +20,8 @@ const ifAuthenticated = (to, from, next) => {
 
 const routes = [
   {
-    path: '/',
+    path: '/devices',
+    alias: '/',
     name: 'devices',
     component: DevicesView,
     beforeEnter: ifAuthenticated,
@@ -42,14 +44,19 @@ const routes = [
     component: LoginView
   },
   {
+    path: '/messages',
+    name: 'messages',
+    component: MessagesView
+  },
+  {
     path: '/register',
     name: 'register',
     component: RegisterView
   },
   {
-    path: "*",
-    name: 'NotFound',
-    component: () => Error
+    path: '/profile',
+    name: 'profile',
+    component: ProfileView
   }
 ]
 
