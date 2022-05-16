@@ -1,6 +1,6 @@
 <template>
 <nav>
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <nav class="navbar navbar-expand-lg navbar-light bg-light  justify-content-between">
     <a class="navbar-brand" href="#">
       <img src="../assets/logo.png" alt="TelematiX" class="logo-image">
     </a>
@@ -21,13 +21,36 @@
         <a class="nav-link" href="/profile">Profile</a>
       </li>
     </ul>
+    <form class="form-inline user-form">
+      <b class="text text-secondary">{{username}}</b>
+      <button class="btn btn-outline-success my-2 my-sm-0" @click="onLogout">Logout</button>
+    </form>
   </nav>
+
 </nav>
 </template>
 
 <script>
+import {mapActions} from "vuex";
+
 export default {
-  name: 'nav-bar'
+  name: 'nav-bar',
+  methods: {
+    ...mapActions({
+      loadProfile: "auth/getProfileInfo"
+    }),
+    onLogout() {
+      sessionStorage.removeItem('token')
+    }
+  },
+  data() {
+    return {
+      username: null
+    }
+  } ,
+  mounted() {
+    this.loadProfile().then(response => this.username = response.data.username).catch(()=>this.$router.push('/login'))
+  }
 }
 </script>
 
@@ -37,5 +60,13 @@ export default {
 }
 .navbar-brand {
   margin-left: 30px;
+}
+.user-form {
+  margin-left: 30px;
+  margin-right: 10px;
+  min-width: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 </style>
