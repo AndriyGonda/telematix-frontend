@@ -1,3 +1,5 @@
 export default  {
-    devices: []
+    devices: [],
+    deviceCreated: null,
+    failedToCreateDevice: null
 }
