@@ -61,9 +61,12 @@ export default {
 .user-form {
   margin-left: 30px;
   margin-right: 10px;
-  min-width: 150px;
+  min-width: 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
+}
+b {
+  padding-left: 10px;
 }
 </style>
