@@ -18,6 +18,7 @@
     "vue-material": "*",
     "vue-router": "^3.5.1",
     "vue-select": "^3.18.3",
+    "vue-ui-preloader": "^1.2.1",
     "vue2-datepicker": "^3.10.4",
     "vue2-leaflet": "^2.7.1",
     "vuetable-2": "^2.0.0-beta.4",

@@ -29,9 +29,6 @@
           <div class="form-item">
             <button class="btn btn-success" @click="onLoadMessagesClick">Load messages</button>
           </div>
-          <div class="form-item">
-            <button class="btn btn-secondary">Clear</button>
-          </div>
           <div v-if="errorMessage" class="text text-danger">{{errorMessage}}</div>
         </div>
       </div>
@@ -65,13 +62,6 @@ export default {
       dateFrom: Date.now(),
       dateTo: Date.now(),
       fields: ["#", 'time', 'message'],
-      data: [
-        {
-          id: 1,
-          time: 'test',
-          message: 'message'
-        }
-      ]
     };
   },
   methods: {
@@ -103,7 +93,7 @@ export default {
     },
     onSelectChange(device) {
       this.loadSensors(device.id)
-    }
+    },
   },
   mounted() {
     this.loadDevices();
