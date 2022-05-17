@@ -35,3 +35,68 @@ export function updateDevice(ctx, payload) {
         }
     })
 }
+
+export function loadSensors(ctx, deviceId) {
+    axios.get(`${CONSTANTS.API_ROOT}/device/${deviceId}/sensors`, {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+    }).then(response => ctx.commit('mutateSelectedDeviceSensors', response.data))
+        .catch(() => ctx.commit('mutateSelectedDeviceSensors', []))
+}
+
+
+export function getLatestSensorValue(ctx, payload) {
+    return axios.get(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensor/${payload.sensorId}/value`, {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+    });
+}
+
+export function addNewSensor(ctx, payload) {
+    return axios.post(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensors`, {
+        topic: payload.topic,
+        title: payload.title,
+        sensorType: payload.sensorType
+    },
+        {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        })
+}
+
+export function updateSensor(ctx, payload) {
+    return axios.put(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensor/${payload.sensorId}`, {
+        topic: payload.topic,
+        title: payload.title,
+        sensorType: payload.sensorType
+    },
+        {
+            headers: {
+                'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+            }
+        })
+}
+
+export function deleteSensor(ctx, payload) {
+    return axios.delete(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensor/${payload.sensorId}`, {
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+    })
+}
+
+export function loadMessages(ctx, payload) {
+    axios.get(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensor/${payload.sensorId}/interval`, {
+        params: {
+            dateFrom: payload.dateFrom,
+            dateTo: payload.dateTo
+        },
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+    }).then(response => ctx.commit('mutateSensorMessages', response.data))
+        .catch(() => ctx.commit('mutateSensorMessages', []))
+}

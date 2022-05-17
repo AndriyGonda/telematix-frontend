@@ -8,9 +8,6 @@
       <li class="nav-item">
         <a class="nav-link" href="/devices">Devices</a>
       </li>
-      <li class="nav-item active">
-        <a class="nav-link" href="/monitoring">Monitoring</a>
-      </li>
       <li class="nav-item">
         <a class="nav-link" href="/messages">Messages</a>
       </li>

@@ -49,7 +49,7 @@
     <li class="md-list-item" v-for="device in devices" v-bind:key="device.id">
       <pre class="text text-success device-title">{{device.name}}</pre>
       <div class="btn-container">
-        <button class="btn btn-primary btn-control">info</button>
+        <button class="btn btn-primary btn-control" @click="onSensorsClick(device.id)">sensors</button>
         <button class="btn btn-success btn-control" @click="onUpdateModalShow(device)">edit</button>
         <button class="btn btn-danger btn-control" @click="onDeleteClick(device.id)">delete</button>
       </div>
@@ -107,12 +107,15 @@ export default {
       this.updateGps = this.selectedDevice.gps
       this.$modal.show("edit-device-modal")
     },
+    onSensorsClick(deviceId) {
+      this.$router.push(`/device/${deviceId}/sensors`)
+    },
     onUpdateModalCancelClick() {
       this.$modal.hide("edit-device-modal")
     },
     onUpdateClick() {
       this.updateDevice({
-        deviceId:this.selectedDevice.id,
+        deviceId: this.selectedDevice.id,
         name: this.updateName,
         gps: this.updateGps
       })

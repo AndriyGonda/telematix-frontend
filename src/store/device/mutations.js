@@ -9,3 +9,11 @@ export function mutateDeviceCreation(state, isCreated) {
 export function mutateDeviceCreationFailed(state, failed) {
     state.failedToCreateDevice = failed
 }
+
+export function mutateSelectedDeviceSensors(state, sensors) {
+    state.selectedDeviceSensors = sensors
+}
+
+export function mutateSensorMessages(state, messages) {
+    state.sensorMessages = messages
+}
