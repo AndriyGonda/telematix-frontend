@@ -11,7 +11,6 @@ export default {
 #app {
 }
 body {
-  background: #eee;
   box-sizing: border-box;
 }
 </style>
