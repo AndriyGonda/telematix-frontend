@@ -40,7 +40,6 @@
       </div>
       <div class="right-panel">
         <div v-if="selectedSensor && selectedSensor.sensorType != 'STRING'" class="top-right-panel">
-          <Plotly v-if="data" :data="data" :layout="layout" :display-mode-bar="false"></Plotly>
 <!--          <l-map :zoom="8" :center="geoposition" ref="map">-->
 <!--            <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>-->
 <!--          </l-map>-->
@@ -58,7 +57,6 @@
 </template>
 
 <script>
-import { Plotly } from 'vue-plotly';
 import NavBar from "@/components/Navbar";
 import DatePicker from 'vue2-datepicker';
 import Vuetable from 'vuetable-2'
@@ -67,14 +65,9 @@ import { latLng } from "leaflet";
 import {mapActions, mapGetters} from "vuex";
 export default {
   name: "ReportView",
-  components: {NavBar, DatePicker,  Vuetable, Plotly},
+  components: {NavBar, DatePicker,  Vuetable},
   data() {
     return {
-      data:[{
-        x: [1,2,3,4],
-        y: [10,15,13,17],
-        type:"scatter"
-      }],
       errorMessage: null,
       selectedDevice: null,
       selectedSensor: null,

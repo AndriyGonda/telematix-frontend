@@ -12,8 +12,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'leaflet/dist/leaflet.css'
 import 'vue-select/dist/vue-select.css'
-import { Plotly } from 'vue-plotly';
-Vue.use(Plotly);
+
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
 Vue.use(VModal)
