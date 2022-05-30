@@ -73,10 +73,10 @@ export default {
     },
     submitFile() {
       const formData = new FormData();
-      formData.append('file', this.Images);
+      formData.append('file', this.images);
       const headers = {
         'Content-Type': 'multipart/form-data',
-        'Authorization': sessionStorage.getItem("token")
+        'Authorization': 'Bearer '  + sessionStorage.getItem("token")
       };
       axios.post(`${CONSTANTS.API_ROOT}/profile/avatar`, formData, { headers }).then(() => {
         this.uploaded = "Avatar updated"
