@@ -3,6 +3,24 @@
   <nav-bar></nav-bar>
   <div class="profile-form">
     <div class="profile-form-container">
+      <div class="avatar-update-container">
+        <div v-if="avatar && avatar.length" class="avatar-container">
+          <img :src="avatar" alt="">
+        </div>
+        <div v-else class="avatar-container">
+          <div>Avatar is empty</div>
+        </div>
+        <div class="form-group">
+          <input type="file" ref="file" @change="uploadFile" class="form-control" style="margin-bottom: 10px">
+        </div>
+        <div class="form-group">
+          <button class="btn btn-danger" @click="submitFile">
+            Update avatar
+          </button>
+          <pre v-if="uploaded" class="text text-success">{{ uploaded }}</pre>
+        </div>
+      </div>
+
       <div class="form-group">
         <label for="firstName">First Name</label>
         <input type="text" id="firstName" class="form-control" v-model="firstName">
@@ -25,13 +43,18 @@
 <script>
 import NavBar from '@/components/Navbar'
 import {mapActions, mapGetters} from "vuex";
+import CONSTANTS from '../../constants'
+import axios from "axios";
 export default {
   name: "ProfileView",
   components: {NavBar},
   data() {
     return {
       firstName: null,
-      lastName: null
+      lastName: null,
+      avatar: null,
+      images: null,
+      uploaded: null
     }
   },
   methods: {
@@ -44,6 +67,20 @@ export default {
         firstName: this.firstName,
         lastName: this.lastName
       })
+    },
+    uploadFile() {
+      this.images = this.$refs.file.files[0];
+    },
+    submitFile() {
+      const formData = new FormData();
+      formData.append('file', this.Images);
+      const headers = {
+        'Content-Type': 'multipart/form-data',
+        'Authorization': sessionStorage.getItem("token")
+      };
+      axios.post(`${CONSTANTS.API_ROOT}/profile/avatar`, formData, { headers }).then(() => {
+        this.uploaded = "Avatar updated"
+      }).catch(reason => this.uploaded = reason.response.data);
     }
   },
   mounted() {
@@ -51,6 +88,10 @@ export default {
         profile => {
           this.firstName = profile.data.firstName;
           this.lastName = profile.data.lastName;
+          if (profile.data.avatarUrl) {
+            this.avatar = CONSTANTS.API_ROOT + "/images/" + profile.data.avatarUrl;
+          }
+
         }
     ).catch(() => this.$router.push('/login'));
   },
@@ -79,5 +120,26 @@ export default {
 }
 .text-success {
   margin-top: 10px;
+}
+.avatar-container {
+  width: 200px;
+  height: 200px;
+  border-radius: 50px;
+  background: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 10px;
+}
+img {
+  max-width: 200px;
+  border-radius: 50px;
+}
+.avatar-update-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  min-height: 300px;
 }
 </style>
