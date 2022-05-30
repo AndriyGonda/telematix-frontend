@@ -29,6 +29,9 @@
           <div class="form-item">
             <button class="btn btn-success" @click="onLoadMessagesClick">Load messages</button>
           </div>
+          <div class="form-item">
+            <button class="btn btn-success" @click="onDownloadMessagesClick">Download messages</button>
+          </div>
           <div v-if="errorMessage" class="text text-danger">{{errorMessage}}</div>
         </div>
       </div>
@@ -68,7 +71,8 @@ export default {
     ...mapActions({
       loadMessages: "device/loadMessages",
       loadDevices: "device/loadDevices",
-      loadSensors: "device/loadSensors"
+      loadSensors: "device/loadSensors",
+      downloadMessages: "device/downloadMessages"
     }),
     onLoadMessagesClick() {
       this.errorMessage = null
@@ -85,6 +89,27 @@ export default {
         return;
       }
       this.loadMessages({
+        deviceId: this.selectedDevice.id,
+        sensorId: this.selectedSensor.id,
+        dateFrom: this.dateFrom.toISOString().replace('Z', '00'),
+        dateTo: this.dateTo.toISOString().replace('Z', '00')
+      })
+    },
+    onDownloadMessagesClick() {
+      this.errorMessage = null
+      if (!this.dateFrom && !this.dateTo) {
+        this.errorMessage = "Choose correct dates"
+        return
+      }
+      if (this.dateFrom > this.dateTo) {
+        this.errorMessage = "Date from greater than date to"
+        return
+      }
+      if (!this.selectedDevice && !this.selectedSensor) {
+        this.errorMessage = "No device or sensor selected"
+        return;
+      }
+      this.downloadMessages({
         deviceId: this.selectedDevice.id,
         sensorId: this.selectedSensor.id,
         dateFrom: this.dateFrom.toISOString().replace('Z', '00'),

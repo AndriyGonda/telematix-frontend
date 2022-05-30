@@ -100,3 +100,23 @@ export function loadMessages(ctx, payload) {
     }).then(response => ctx.commit('mutateSensorMessages', response.data))
         .catch(() => ctx.commit('mutateSensorMessages', []))
 }
+
+export function downloadMessages(ctx, payload) {
+    axios.get(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensor/${payload.sensorId}/interval/csv`, {
+        params: {
+            dateFrom: payload.dateFrom,
+            dateTo: payload.dateTo
+        },
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+    }).then(response => {
+        const url = window.URL.createObjectURL(new Blob([response.data]));
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'messages.csv'); //or any other extension
+        document.body.appendChild(link);
+        link.click();
+    })
+        .catch(() => {})
+}
