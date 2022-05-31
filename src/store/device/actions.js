@@ -120,3 +120,21 @@ export function downloadMessages(ctx, payload) {
     })
         .catch(() => {})
 }
+
+export function loadNumberReport(ctx, payload) {
+    axios.get(`${CONSTANTS.API_ROOT}/device/${payload.deviceId}/sensor/${payload.sensorId}/report/number`, {
+        params: {
+            dateFrom: payload.dateFrom,
+            dateTo: payload.dateTo
+        },
+        headers: {
+            'Authorization': 'Bearer ' + sessionStorage.getItem('token')
+        }
+    }).then(response => {
+        ctx.commit('mutateNumberReport', response.data)
+        console.log(response.data)
+    })
+        .catch(() => {
+            ctx.commit('mutateNumberReport', null)
+        })
+}

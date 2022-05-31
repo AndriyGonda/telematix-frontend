@@ -39,7 +39,15 @@
         </div>
       </div>
       <div class="right-panel">
-        <div v-if="selectedSensor && selectedSensor.sensorType != 'STRING'" class="top-right-panel">
+        <div v-if="selectedSensor && selectedSensor.sensorType !== 'STRING'" class="top-right-panel">
+          <line-chart
+              v-if="numberDataset && selectedSensor.sensorType === 'NUMBER'"
+              :data="numberDataset"
+              :download="true"
+              xtitle="Time"
+              ytitle="Sensor value"
+              :messages="{empty: 'No data'}"
+          ></line-chart>
 <!--          <l-map :zoom="8" :center="geoposition" ref="map">-->
 <!--            <l-tile-layer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"></l-tile-layer>-->
 <!--          </l-map>-->
@@ -81,7 +89,8 @@ export default {
     ...mapActions({
       loadMessages: "device/loadMessages",
       loadDevices: "device/loadDevices",
-      loadSensors: "device/loadSensors"
+      loadSensors: "device/loadSensors",
+      loadNumberReport: "device/loadNumberReport"
     }),
     onLoadMessagesClick() {
       this.errorMessage = null
@@ -96,6 +105,14 @@ export default {
       if (!this.selectedDevice && !this.selectedSensor) {
         this.errorMessage = "No device or sensor selected"
         return;
+      }
+      if (this.selectedSensor.sensorType === 'NUMBER') {
+          this.loadNumberReport({
+            deviceId: this.selectedDevice.id,
+            sensorId: this.selectedSensor.id,
+            dateFrom: this.dateFrom.toISOString().replace('Z', '00'),
+            dateTo: this.dateTo.toISOString().replace('Z', '00')
+          })
       }
       this.loadMessages({
         deviceId: this.selectedDevice.id,
@@ -118,7 +135,8 @@ export default {
     ...mapGetters({
       devices: 'device/getDevices',
       sensors: 'device/getSensors',
-      messages: 'device/getMessages'
+      messages: 'device/getMessages',
+      numberReport: 'device/getNumberReport'
     }),
     selectDevices() {
       return this.devices.map(device=> {
@@ -143,16 +161,14 @@ export default {
         }
       })
     },
-    geoposition() {
-      let position = {
-        coords: {
-          latitude: 47.41322,
-          longitude:  -1.219482
-        }
-      }
-      navigator.geolocation.getCurrentPosition(pos => position = pos)
-      return latLng(position.coords.latitude, position.coords.longitude)
-
+    numberDataset() {
+      if (!this.numberReport) return {};
+      let messages = this.numberReport.messages || []
+      let dataset = {};
+      messages.forEach(message => {
+        dataset[message.timestamp] = message.value;
+      })
+      return dataset;
     }
   }
 

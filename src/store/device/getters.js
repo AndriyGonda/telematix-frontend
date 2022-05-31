@@ -9,3 +9,7 @@ export function getSensors(state) {
 export function getMessages(state) {
     return state.sensorMessages
 }
+
+export function getNumberReport(state) {
+    return state.numberReport
+}

@@ -17,3 +17,7 @@ export function mutateSelectedDeviceSensors(state, sensors) {
 export function mutateSensorMessages(state, messages) {
     state.sensorMessages = messages
 }
+
+export function mutateNumberReport(state, report) {
+    state.numberReport = report;
+}

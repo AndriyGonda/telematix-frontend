@@ -3,5 +3,6 @@ export default  {
     deviceCreated: null,
     failedToCreateDevice: null,
     selectedDeviceSensors: [],
-    sensorMessages: []
+    sensorMessages: [],
+    numberReport: null
 }
