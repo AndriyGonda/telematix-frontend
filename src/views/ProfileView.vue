@@ -80,6 +80,7 @@ export default {
       };
       axios.post(`${CONSTANTS.API_ROOT}/profile/avatar`, formData, { headers }).then(() => {
         this.uploaded = "Avatar updated"
+        this.$router.go(0);
       }).catch(reason => this.uploaded = reason.response.data);
     }
   },

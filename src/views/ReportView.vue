@@ -30,10 +30,7 @@
             <button class="btn btn-success" @click="onLoadMessagesClick">Load report</button>
           </div>
           <div class="form-item">
-            <button class="btn btn-primary" @click="onLoadMessagesClick">Download report</button>
-          </div>
-          <div class="form-item">
-            <button class="btn btn-secondary">Clear</button>
+            <button class="btn btn-secondary" @click="onClearClick">Clear</button>
           </div>
           <div v-if="errorMessage" class="text text-danger">{{errorMessage}}</div>
         </div>
@@ -122,11 +119,23 @@ export default {
       })
     },
     onSelectChange(device) {
+      this.messages = [];
+      this.numberReport = null;
+      this.selectMessages = null;
       this.loadSensors(device.id)
     },
+    onClearClick() {
+      this.messages = [];
+      this.numberReport = null;
+      this.selectMessages = null;
+      this.$router.go(0);
+    }
   },
   mounted() {
     this.loadDevices();
+    this.messages = [];
+    this.numberReport = null;
+    this.selectMessages = null;
     navigator.geolocation.getCurrentPosition(pos => {
       this.$ref.map.panTo(latLng(pos.coords.latitude, pos.coords.longitude))
     })
